@@ -4,13 +4,13 @@ import '../css/pokecard.css'
 
 export default function PokeCard(props: Pokemon) {
   const [pokeImage, setPokeImage] = useState('');
+  const [pokemonName, setPokemonName] = useState('');
 
   const fetchPokemonDetails = async () => {
-      let response = await fetch(props.url);
+      let response = await fetch(`https://pokeapi.co/api/v2/pokemon/${props.entry_number}`);
       let result = await response.json();
-      // console.log(result)
-      // setPokeImage(result.sprites.front_default)
-      setPokeImage(result)
+      setPokeImage(result.sprites.other.home.front_default)
+      setPokemonName(result.name)
   };
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function PokeCard(props: Pokemon) {
         src={pokeImage}
         alt="Default for Pokemon"
         />
-        <div className='ttc'>{props.name}</div>
+        <div className='ttc'>{pokemonName}</div>
     </div>
   )
 }
